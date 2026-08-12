@@ -195,6 +195,73 @@
     line-height: 1.65;
     max-width: 68ch;
   }
+
+  /* Opacity and transform only. No layout animation, no springs, no bounce. */
+  [data-state="open"].anim-overlay {
+    animation: kompas-fade-in var(--dur-panel) var(--ease-standard);
+  }
+  [data-state="closed"].anim-overlay {
+    animation: kompas-fade-out var(--dur-panel) var(--ease-standard);
+  }
+  [data-state="open"].anim-sheet {
+    animation: kompas-slide-in var(--dur-panel) var(--ease-standard);
+  }
+  [data-state="closed"].anim-sheet {
+    animation: kompas-slide-out var(--dur-panel) var(--ease-standard);
+  }
+
+  /*
+   * The only "alive" motion in the app. It earns its place because it
+   * communicates real work happening — tokens arriving from the model.
+   */
+  .caret::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background-color: var(--color-accent);
+    animation: kompas-blink 1s steps(2, start) infinite;
+  }
+}
+
+@keyframes kompas-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes kompas-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes kompas-slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes kompas-slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes kompas-blink {
+  to {
+    visibility: hidden;
+  }
 }
 
 /* Respect the user's motion preference — disable everything. */

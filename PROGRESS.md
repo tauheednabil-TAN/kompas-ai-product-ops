@@ -64,3 +64,91 @@ live (`background: rgb(250,250,248)`, Inter, 14px/26px scale, `lang="da"`,
 
 Phase 1 — shell, i18n from day one, dark mode, synthetic-data banner, Drizzle
 schema, `/revisionsspor`, and the `/haandbog/design` component gallery.
+
+---
+
+## 2026-08-13 — Phase 1: Shell, design system, i18n, DB, audit log
+
+### Shipped
+
+- **i18n from the first commit.** `lib/i18n/{da,en}.ts`. Danish is the source
+  dictionary; English is typed as `Dictionary`, so a missing key is a **compile**
+  error rather than a silent fallback. Both dictionaries ship to the client, which
+  is what makes the DA|EN toggle instant with no reload.
+- **Full Drizzle schema** for all eight tables in §6, plus `blocked_submissions`
+  for the CPR guard's own trail.
+- **`/revisionsspor`** reading real rows, with a drill-down sheet.
+- **`/haandbog/design`** — every component in both themes; the project's own
+  visual regression check.
+- Sidebar with collapse, DA|EN segmented control, three-way theme toggle,
+  synthetic-data banner, all eight routes.
+- `docs/design.md` documenting the system as built and both deviations from §4.
+
+### Decisions made and why
+
+| Decision | Reasoning |
+| --- | --- |
+| Radix primitives directly, **not** the shadcn CLI | `shadcn init` rewrites `globals.css` with its own competing token system, and every component would still need stripping of shadows/weights that violate §4. Radix gives the hard part (a11y, focus, keyboard); the styling is less work to write than to correct. |
+| Both dictionaries on the client | A cookie + `router.refresh()` would flash and round-trip. A few kB buys a genuinely instant toggle, which §4.5 asks for by name. |
+| Sidebar/banner state in **cookies**, not `localStorage` | A client-only read paints the wrong layout and then snaps. The server reads the cookie and gets it right on first paint. The banner uses a *session* cookie (no max-age) so C2's "per session, never per user" is enforced by the browser, not by us. |
+| DB queries return a tagged result, never throw | "Not configured", "unreachable" and "fine but empty" are three different problems with three different fixes. An error boundary flattens them into one useless screen. |
+| `design-scout` not run | §4 is marked authoritative and already prescribes layout, hierarchy, interaction and motion in detail. Little left to decide, real risk of drifting from a spec that wins on conflict. Time went to Phase 4 instead. Reasoning in `docs/design.md` §3. |
+| Danish dictionary is **not** `as const` | With const assertions every value becomes its own literal type, so `Dictionary` would demand the English text be character-identical to the Danish. Caught by `tsc` in ~50 errors; the fix is one line and a comment. |
+
+### Bugs found by loading the page that the build did not catch
+
+Worth recording, because it is the whole argument for step 4 of the loop:
+
+1. **`isLocale()` called from a Server Component.** It lived in a `'use client'`
+   module, so every export became a client reference. `npm run verify` was fully
+   green — typecheck, lint, tests and production build all passed — and every
+   route 500'd on load. Fixed by splitting server/client-shared primitives into
+   `lib/i18n/config.ts`, `lib/theme/config.ts` and `lib/ui-cookies.ts`.
+2. **Dynamic Tailwind classes.** The design gallery built swatch classes as
+   `` bg-${name} ``. Tailwind scans for literal strings, so it emitted no CSS at
+   all — a page whose entire job is to prove the tokens work would have been
+   lying. Now written out in full.
+3. **`tailwindcss-animate` utilities used without the plugin.** The sheet's
+   enter/exit classes were inert. Replaced with real keyframes in `globals.css`.
+
+### Cut / deferred
+
+- The five module routes (`/agenter`, `/sagsspejl`, `/faerdigheder`,
+  `/evalueringer`, `/indsigter`) currently render their real page header and a
+  real empty state. They are filled in by their own phases. The empty states are
+  not placeholders — they survive into the shipped build as the genuine
+  no-data-yet state for each module.
+
+### Verification
+
+- `npm run verify` green: typecheck → lint → **13 tests** → build, 9 routes.
+- All 8 routes return 200 with the correct Danish `<h1>`; an unknown path 404s.
+- Locale toggle: `lang` flips to `en`, `hyphens` to `manual`, cookie persists,
+  every nav item and the banner translate, **zero** Danish characters left
+  anywhere in the chrome (asserted in the browser and in a test).
+- Contrast measured in the running app, not calculated on paper:
+  - Light, vs page background: ink 17.3, muted 5.96, faint 4.57, accent 8.67,
+    ok 6.19, warn 5.66, danger 7.20, info 8.29.
+  - Dark, vs surface: ink 14.9, muted 6.62, faint 5.01, accent 6.20, and every
+    coloured chip on its own soft fill ≥ 5.13.
+  - All ≥ 4.5:1.
+- At 375px: sidebar forced to the 60px rail, nav labels hidden, page body does
+  **not** scroll horizontally, wide tables scroll inside their own container.
+- A11y spot-check: one `<nav>` and one `<main>` landmark, zero buttons without an
+  accessible name, zero decorative SVGs exposed to assistive tech.
+
+### Known issues
+
+- Still no `GOOGLE_GENERATIVE_AI_API_KEY` and no `DATABASE_URL`. Every page that
+  reads the database currently renders the "not configured" notice — which is the
+  correct behaviour, and is itself verified, but it means the audit log has never
+  been seen with real rows.
+- Lighthouse has not been run; the environment cannot display the browser pane, so
+  screenshots and Lighthouse are both unavailable. Verification is being done
+  through the accessibility tree, computed styles and measured contrast instead.
+  Lighthouse must be run before the Definition of Done can be signed off.
+
+### Next
+
+Phase 2 — agent runtime, prompt versioning, streaming, telemetry writes, and the
+Feedback-triage agent.
