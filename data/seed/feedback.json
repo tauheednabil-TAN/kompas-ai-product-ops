@@ -1,0 +1,212 @@
+[
+  {
+    "id": "fb-001",
+    "kommune": "Odense Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-07T08:41:00Z",
+    "tekst": "Hej support\n\nVi har efter opdateringen den 2. april oplevet, at metodefeltet ikke gemmes, når en sagsbehandler afslutter en opfølgning på en § 85-indsats. Feltet står udfyldt indtil man trykker Afslut, og bagefter er det tomt igen.\n\nDet betyder, at vi ikke kan dokumentere hvilken metode der er anvendt, og det er et krav i vores kvalitetsstandard. Vi er ni sagsbehandlere der bruger det dagligt. Indtil videre skriver vi metoden ind i den frie tekst i stedet, men det holder ikke, når vi skal trække ledelsesinformation på tværs.\n\nKan I sige noget om, hvornår det kan være rettet?\n\nVenlig hilsen\nMarianne\nFaglig koordinator, Voksen og Handicap"
+  },
+  {
+    "id": "fb-002",
+    "kommune": "Aarhus Kommune",
+    "kanal": "Workshopnote",
+    "modtaget": "2026-04-09T13:20:00Z",
+    "tekst": "Note fra workshop med myndighedsrådgivere, Børn og Unge.\n\nGennemgående tilbagemelding: udredningen i ICS-skabelonen kræver at man scroller gennem samtlige otte trekantsområder, også når kun to er relevante for den konkrete sag. Rådgiverne beskriver det som \"at lede efter det ene felt jeg skal bruge\". Flere har lavet deres egne bogmærker i browseren for at springe direkte til de afsnit de bruger.\n\nEn rådgiver med 20 års erfaring sagde, at hun bruger omkring ti minutter pr. sag alene på at navigere. Der er cirka 40 rådgivere på området.\n\nForslag fra gruppen: mulighed for at folde ikke-relevante områder sammen, og at valget huskes til næste sag."
+  },
+  {
+    "id": "fb-003",
+    "kommune": "Aalborg Kommune",
+    "kanal": "Videresendt mail",
+    "modtaget": "2026-04-11T15:55:00Z",
+    "tekst": "Videresendt fra driftschefen.\n\n\"Vi har nu tre gange på en uge oplevet at Vigilo ikke kunne tilgås mellem 7.30 og 8.15. Det er præcis det tidsrum hvor personalet i dagtilbud registrerer fremmøde. Når systemet er nede, noteres fremmøde på papir og tastes ind senere på dagen, og så passer tallene ikke med det pædagogiske personales egne optællinger.\n\nDet påvirker samtlige 62 institutioner i kommunen. Vi har brug for at vide om det er et kapacitetsproblem hos jer, og hvad der bliver gjort.\"\n\nJeg har lovet at vende tilbage inden fredag."
+  },
+  {
+    "id": "fb-004",
+    "kommune": "Randers Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-12T10:02:00Z",
+    "tekst": "Når jeg søger på en borger i Sensum One og bagefter trykker tilbage i browseren, mister jeg mine søgekriterier og skal skrive dem ind igen. Det er irriterende når man sidder med en liste på 30 borgere der skal gennemgås."
+  },
+  {
+    "id": "fb-005",
+    "kommune": "Esbjerg Kommune",
+    "kanal": "Kundemødereferat",
+    "modtaget": "2026-04-14T09:00:00Z",
+    "tekst": "Uddrag af referat, kvartalsmøde med Esbjerg Kommune. Deltagere: digitaliseringschef, to teamledere fra henholdsvis Handicap og Psykiatri, faglig konsulent fra ungeområdet, EG v/ kundeansvarlig.\n\nPunkt 3: Overgang fra ungeområdet til voksenområdet\n\nKommunen rejste, at overleveringen af oplysninger mellem SagsKom og Sensum One ved skift fra ungeområdet til voksenområdet ikke er komplet. Konkret følger handleplanens delmål ikke med. Stamoplysninger, bevillinger og journalnotater overføres korrekt, men delmålene ligger i en anden datastruktur og medtages ikke.\n\nKonsekvensen er, at den modtagende rådgiver på voksenområdet ikke kan se, hvad der er arbejdet hen imod på ungeområdet, og derfor i praksis starter forfra. Kommunen beskriver, at det giver en dårlig oplevelse for den unge, som skal fortælle sin historie igen på et tidspunkt, hvor der i forvejen sker meget. Den faglige konsulent formulerede det som, at \"vi taber trådene lige der, hvor de betyder mest\".\n\nTeamlederen fra Handicap anslog, at det sker for omkring 25 unge om året i Esbjerg alene. Kommunen har hørt fra kolleger i to nabokommuner, at de oplever nøjagtig det samme, og at én af dem har bygget en manuel tjekliste for at kompensere.\n\nKommunen spurgte, om det er et bevidst valg, at delmål ikke overføres, eller om det er en mangel. EG kunne ikke svare på mødet.\n\nDer blev fra kommunens side lagt vægt på, at de ikke efterspørger en stor ny funktion, men at oplysninger, der allerede findes, følger med borgeren. Digitaliseringschefen bemærkede, at kommunen har en politisk vedtaget målsætning om sammenhængende overgange for unge, og at dette punkt er et konkret eksempel på det modsatte.\n\nAftale: EG undersøger, om delmål kan medtages i overleveringen, og vender tilbage skriftligt inden næste kvartalsmøde. Kommunen sender de to nabokommuners kontaktpersoner, hvis EG ønsker at høre deres erfaringer."
+  },
+  {
+    "id": "fb-006",
+    "kommune": "Vejle Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-15T11:31:00Z",
+    "tekst": "Hej\n\nDet er tredje gang jeg skriver om det her, og jeg begynder ærligt talt at blive træt af det. Hver gang får jeg at vide at der er oprettet en sag, og så hører jeg ikke mere. Mine kollegaer spørger mig hver uge hvornår det bliver løst, og jeg har ikke noget at sige til dem. Det er ikke i orden, når vi betaler det vi gør.\n\nDet drejer sig stadig om at rapporten \"Indsatser pr. leverandør\" viser tal der ikke stemmer med det vi kan tælle os frem til manuelt. Vi har sammenlignet på 14 borgere, og på 4 af dem er der forskel. Vi kan ikke bruge rapporten til afregning når vi ikke ved om tallene passer.\n\nJeg forventer et konkret svar denne gang.\n\nHenrik"
+  },
+  {
+    "id": "fb-007",
+    "kommune": "Herning Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-16T14:12:00Z",
+    "tekst": "Vi vil gerne melde en fejl: Systemet lader os ikke oprette en indsats med startdato længere end 12 måneder frem i tiden. Vi har flere borgere hvor bevillingen løber over to år, og så skal vi oprette den i to omgange og huske at følge op manuelt.\n\nDet ville hjælpe meget hvis feltet kunne rumme længere perioder."
+  },
+  {
+    "id": "fb-008",
+    "kommune": "Silkeborg Kommune",
+    "kanal": "Workshopnote",
+    "modtaget": "2026-04-18T10:45:00Z",
+    "tekst": "Fra brugerpanel, STU-området.\n\nVejlederne fortæller at når en elev skifter fra Uno Ung til Uno STU, oprettes eleven som ny, og dokumentationen fra ungeindsatsen følger ikke med. De klipper og klistrer derfor manuelt fra det ene system til det andet. To vejledere nævnte at de i praksis holder begge faneblade åbne hele dagen.\n\nDer var uenighed i panelet om hvor alvorligt det er: en vejleder mente at det \"tager fem minutter og så er det gjort\", mens en anden pegede på at man ved manuel overførsel risikerer at overse noget væsentligt om elevens støttebehov. Begge synspunkter blev noteret.\n\nAntal berørte elever i Silkeborg: omkring 30 om året."
+  },
+  {
+    "id": "fb-009",
+    "kommune": "Roskilde Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-19T08:20:00Z",
+    "tekst": "God morgen\n\nVi har opdaget, at når en medarbejder er oprettet med to roller — både som sagsbehandler og som leder — så vises borgerens fulde helbredsoplysninger i ledervisningen, også for de sager vedkommende ikke selv er tilknyttet.\n\nVi har midlertidigt fjernet den ene rolle for de tre medarbejdere det gælder, men vi har brug for at vide om det er en generel fejl, og om andre kommuner er berørt. Vi skal kunne redegøre for det over for vores DPO.\n\nMvh\nCamilla, informationssikkerhedskoordinator"
+  },
+  {
+    "id": "fb-010",
+    "kommune": "Næstved Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-20T16:03:00Z",
+    "tekst": "Knappen \"Gem og luk\" ligger så tæt på \"Annullér\", at jeg to gange i dag har mistet det jeg havde skrevet. Kunne der komme lidt mere luft mellem dem?"
+  },
+  {
+    "id": "fb-011",
+    "kommune": "Horsens Kommune",
+    "kanal": "Videresendt mail",
+    "modtaget": "2026-04-21T12:40:00Z",
+    "tekst": "Videresendt fra en sagsbehandler i Voksen og Handicap:\n\n\"Jeg har lige brugt en time på at finde ud af, hvorfor jeg ikke kunne afslutte en sag. Der stod bare 'Handlingen kunne ikke gennemføres'. Det viste sig at der lå et ikke-afsluttet opfølgningsskema fra 2024 på sagen, men det står der ingen steder i fejlbeskeden.\n\nJeg forstår godt at man ikke kan afslutte en sag med åbne skemaer. Jeg forstår ikke hvorfor systemet ikke bare siger det.\"\n\nJeg vil tro det rammer bredt — vi har mange sager med gamle skemaer liggende."
+  },
+  {
+    "id": "fb-012",
+    "kommune": "Kolding Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-22T09:15:00Z",
+    "tekst": "Vi har i går fået meldt ind fra to afdelinger, at SafetyNet ikke sender kvittering, når en medarbejder har registreret en arbejdsulykke. Registreringen ligger korrekt i systemet — vi kan se den — men medarbejderen får ingen bekræftelse og opretter derfor registreringen igen. Vi har fundet fire dubletter i denne uge.\n\nDet giver et forkert billede i vores arbejdsmiljøstatistik, og den bruges i APV-arbejdet. Vi vil gerne have det rettet inden vi trækker halvårstal den 30."
+  },
+  {
+    "id": "fb-013",
+    "kommune": "Viborg Kommune",
+    "kanal": "Workshopnote",
+    "modtaget": "2026-04-23T14:00:00Z",
+    "tekst": "Note: Nye sagsbehandlere (fire i alt, ansat inden for tre måneder) blev spurgt hvad der var sværest at komme i gang med.\n\nAlle fire nævnte forskellen mellem \"indsats\", \"ydelse\" og \"tilbud\". De bruges forskelligt i systemet og i vores egen vejledning, og de nye kan ikke gennemskue hvornår de skal bruge hvad. En sagde: \"Jeg gætter mig frem, og så retter min mentor det bagefter.\"\n\nDet er ikke en systemfejl, men det koster tid i oplæringen, og det giver uens registrering på tværs af teamet."
+  },
+  {
+    "id": "fb-014",
+    "kommune": "Gladsaxe Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-24T10:30:00Z",
+    "tekst": "Ved månedskørslen den 1. blev 118 indsatser markeret som afsluttet, uden at nogen har foretaget sig noget. Vi har genåbnet dem manuelt, men vi ved ikke om det er sket før uden at vi opdagede det.\n\nVi har brug for at vide hvad der skete, og om der findes en log vi kan se. Det her rører ved om vi kan stole på data i systemet."
+  },
+  {
+    "id": "fb-015",
+    "kommune": "Hvidovre Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-25T13:44:00Z",
+    "tekst": "Er der mulighed for at få eksporteret borgerlisten til Excel? Vi bruger den til at planlægge hvem der skal have opfølgning i næste kvartal, og lige nu skriver vi den af i hånden."
+  },
+  {
+    "id": "fb-016",
+    "kommune": "Frederiksberg Kommune",
+    "kanal": "Kundemødereferat",
+    "modtaget": "2026-04-27T09:30:00Z",
+    "tekst": "Uddrag, driftsmøde.\n\nKommunen oplever svartider på 8-12 sekunder ved åbning af en borgersag i tidsrummet 8-10. Efter kl. 10 er svartiden under to sekunder. Det er målt af kommunens egen it-afdeling over fire dage.\n\nKommunen bemærker, at det er præcis i det tidsrum, hvor de fleste sagsbehandlere åbner dagens sager, og at det derfor rammer hårdere end tallet umiddelbart antyder. Ca. 85 samtidige brugere i spidsbelastning.\n\nEG oplyste at der er igangsat en undersøgelse. Kommunen bad om at få en tilbagemelding med en konkret dato."
+  },
+  {
+    "id": "fb-017",
+    "kommune": "Slagelse Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-28T11:11:00Z",
+    "tekst": "Hej\n\nJeg skriver på vegne af vores gruppe. Vi synes generelt at systemet er blevet bedre efter sidste opdatering, og især at man nu kan se hvornår et notat sidst er redigeret. Det havde vi savnet.\n\nDet eneste vi stadig undrer os over er, at man ikke kan se hvem der har redigeret det. Vi kan se tidspunktet, men ikke initialerne. Når vi skal følge op på en sag, er det tit relevant at vide, hvem man skal spørge.\n\nMvh Lone"
+  },
+  {
+    "id": "fb-018",
+    "kommune": "Holbæk Kommune",
+    "kanal": "Videresendt mail",
+    "modtaget": "2026-04-29T15:20:00Z",
+    "tekst": "Fra en teamleder:\n\n\"Vi kan ikke længere finde ud af hvilke sager der mangler opfølgning inden for fristen. Den oversigt vi plejede at bruge viser nu kun sager hvor fristen allerede er overskredet, ikke dem der nærmer sig.\n\nDet betyder at vi opdager det for sent i stedet for i tide. Vi er en kommune der er blevet kigget efter i sømmene på præcis det punkt, så det er ikke ligegyldigt for os.\"\n\nJeg kan ikke se i release notes at der skulle være ændret noget, men brugerne er ret sikre på at det virkede anderledes før påske."
+  },
+  {
+    "id": "fb-019",
+    "kommune": "Køge Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-04-30T08:50:00Z",
+    "tekst": "Vi bruger både Sensum One på voksenområdet og Vigilo i dagtilbud. Når en familie har både en voksensag og børn i dagtilbud, har vi ingen måde at se sammenhængen på. Det er formentlig helt bevidst af hensyn til adgangsstyring, og det har vi respekt for.\n\nMen der opstår situationer hvor en rådgiver på voksenområdet har brug for at vide, at der er en igangværende bekymring i dagtilbuddet. I dag sker det ved at nogen ringer til nogen.\n\nJeg ved godt det er en større snak end en supportsag. Jeg melder det ind fordi jeg tror det er relevant for jer at vide, at behovet findes."
+  },
+  {
+    "id": "fb-020",
+    "kommune": "Guldborgsund Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-05-02T10:05:00Z",
+    "tekst": "Notatfeltet på opfølgning har en grænse på 2000 tegn, men systemet siger det ikke. Man opdager det først når man trykker gem og teksten er skåret af. En kollega mistede en halv times arbejde i går.\n\nEnten burde der stå hvor mange tegn man har tilbage, eller også burde grænsen være højere."
+  },
+  {
+    "id": "fb-021",
+    "kommune": "Skanderborg Kommune",
+    "kanal": "Workshopnote",
+    "modtaget": "2026-05-03T13:15:00Z",
+    "tekst": "Note fra fokusgruppe om dokumentationskvalitet, seks deltagere fra myndighed.\n\nDeltagerne blev bedt om at pege på det der oftest giver anledning til, at et notat skal skrives om. Nævnt i rækkefølge efter hvor mange der pegede på det:\n\n1. Borgerens egne ord mangler — der står hvad rådgiveren vurderer, ikke hvad borgeren har sagt (5 af 6)\n2. Manglende faglig begrundelse for et valg af indsats (4 af 6)\n3. Ingen aftale om hvornår der følges op (3 af 6)\n\nEn deltager foreslog en tjekliste i systemet inden man gemmer. En anden var imod, med den begrundelse at \"så klikker man den bare væk\". Der var enighed om at forslag til omskrivning ville være mere brugbart end en advarsel."
+  },
+  {
+    "id": "fb-022",
+    "kommune": "Ikast-Brande Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-05-04T09:40:00Z",
+    "tekst": "Vi har en medarbejder der er gået på barsel, og hendes 42 sager skal fordeles. Vi kan kun flytte én sag ad gangen, og hver flytning kræver fire klik. Det tog vores administrative medarbejder halvanden time.\n\nDet sker ikke hver dag, men det sker et par gange om året, og så er det rigtig træls."
+  },
+  {
+    "id": "fb-023",
+    "kommune": "Thisted Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-05-05T14:25:00Z",
+    "tekst": "Selvbetjeningsløsningen afviser ansøgninger fra borgere med adresse i udlandet, men fejlbeskeden siger bare \"Ugyldig indtastning\". Borgeren ved ikke hvad der er galt, og ringer til os. Vi har haft fem opkald på to uger om det samme.\n\nHvis løsningen ikke skal understøtte udenlandske adresser, så bør den sige det."
+  },
+  {
+    "id": "fb-024",
+    "kommune": "Sønderborg Kommune",
+    "kanal": "Videresendt mail",
+    "modtaget": "2026-05-06T11:00:00Z",
+    "tekst": "Videresendt fra en sagsbehandler, der beder om at være anonym:\n\n\"Jeg har brug for at sige det højt et sted, og jeg ved godt at supportpostkassen ikke er stedet, men jeg orker ikke flere møder hvor vi taler om trivsel.\n\nJeg har 63 sager. Da jeg blev ansat for fire år siden havde jeg 38. Jeg bruger halvdelen af min dag i systemet og den anden halvdel på at rette op på det jeg ikke nåede i går. Jeg blev uddannet til at arbejde med mennesker, ikke til at være tastedame. Sidste tirsdag sad jeg til klokken 18 og tastede, og da jeg kørte hjem kunne jeg ikke huske om jeg havde snakket med en eneste borger den dag.\n\nJeg er godt klar over at det ikke er jeres skyld at jeg har 63 sager. Det er ikke jeres skyld at der er sparet på området, og det er ikke jeres skyld at min leder har fire teams. Jeg skriver alligevel, fordi jeg tænker at nogen et sted må kunne bruge det til noget.\n\nDer er én ting I faktisk kan gøre noget ved. Hver gang jeg opretter en indsats, skal jeg skrive borgerens adresse ind. Den står allerede på borgeren. Jeg skriver den igen på indsatsen, og så igen på bestillingen til leverandøren. Tre gange, samme adresse, og hvis borgeren flytter skal jeg huske alle tre steder, ellers går bestillingen til den forkerte adresse. Det er sket for en kollega i marts.\n\nJeg regner ikke med at der sker noget. Men nu har jeg skrevet det.\"\n\nJeg synes I skal se den, også selvom tonen er hvad den er. Der ligger en konkret ting i den midt i det hele."
+  },
+  {
+    "id": "fb-025",
+    "kommune": "Rudersdal Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-05-07T08:15:00Z",
+    "tekst": "Efter opdateringen i fredags kan ingen af vores 12 sagsbehandlere logge ind via kommunens single sign-on. Vi kommer ind med lokal login, men det er ikke en løsning vi kan leve med, da vi så mister koblingen til vores rettighedsstyring.\n\nDet er blokerende for os. Vi har åbnet sag hos vores egen it-afdeling parallelt, men de peger tilbage på jer."
+  },
+  {
+    "id": "fb-026",
+    "kommune": "Ballerup Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-05-08T15:30:00Z",
+    "tekst": "Kan man få lov at ændre rækkefølgen på kolonnerne i sagsoversigten? Vi kigger mest på frist og status, og de ligger helt ude til højre."
+  },
+  {
+    "id": "fb-027",
+    "kommune": "Egedal Kommune",
+    "kanal": "Kundemødereferat",
+    "modtaget": "2026-05-09T10:00:00Z",
+    "tekst": "Uddrag, statusmøde.\n\nKommunen orienterede om, at de fra 1. januar 2027 skal afrapportere efter en ny model på voksenområdet, og at de har brug for at vide, om der kommer understøttelse i systemet, eller om de skal planlægge en manuel proces.\n\nEG kunne ikke give et svar på mødet. Kommunen understregede, at de har behov for en tilbagemelding i indeværende kvartal, da de ellers skal afsætte ressourcer til en manuel løsning i budgettet for 2027.\n\nDette er ikke en fejlmelding, men et planlægningsbehov. Det blev aftalt at kundeansvarlig følger op skriftligt."
+  },
+  {
+    "id": "fb-028",
+    "kommune": "Faaborg-Midtfyn Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-05-11T09:20:00Z",
+    "tekst": "Hej\n\nNår vi registrerer medicinhåndtering, kan man vælge en dato frem i tiden. Det giver ikke mening — man kan ikke have udleveret medicin i morgen. Vi har fundet tre registreringer med fremtidig dato, som formentlig er tastefejl.\n\nDet er ikke sket noget ved det, men det er den slags der kan give et problem, hvis nogen skal kigge på en sag bagefter. Kunne feltet spærres for fremtidige datoer?\n\nMvh Bente, sygeplejerske"
+  },
+  {
+    "id": "fb-029",
+    "kommune": "Lemvig Kommune",
+    "kanal": "Workshopnote",
+    "modtaget": "2026-05-12T13:00:00Z",
+    "tekst": "Kort note fra sidemandsoplæring.\n\nTo ud af tre observerede sagsbehandlere brugte søgefeltet til at navigere frem for menuen, også når de vidste præcis hvor de skulle hen. Adspurgt sagde begge at det gik hurtigere. Den tredje brugte kun menuen og kendte ikke til søgefeltet.\n\nIngen fejl her, men det siger noget om hvor folk faktisk klikker."
+  },
+  {
+    "id": "fb-030",
+    "kommune": "Norddjurs Kommune",
+    "kanal": "Supportsag",
+    "modtaget": "2026-05-13T11:45:00Z",
+    "tekst": "Vi har haft besøg af Socialtilsynet, og de bad om dokumentation for opfølgning på otte konkrete borgere over de seneste to år. Vi kunne trække seks af dem. På de sidste to er der huller i perioden hvor vi skiftede fra den gamle version, og vi kan ikke se om opfølgningen ikke er sket, eller om den bare ikke er migreret.\n\nVi har brug for hjælp til at afklare det, og vi har brug for det inden for 14 dage, da vi skal svare tilsynet."
+  }
+]

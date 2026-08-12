@@ -152,3 +152,86 @@ Worth recording, because it is the whole argument for step 4 of the loop:
 
 Phase 2 — agent runtime, prompt versioning, streaming, telemetry writes, and the
 Feedback-triage agent.
+
+---
+
+## 2026-08-13 — Phase 2: Agent runtime + Feedback-triage
+
+> **This phase is code-complete but NOT accepted.** Its acceptance criteria
+> require running all 30 seed items against a live model, and there is no API key
+> and no database on this machine. Everything verifiable without credentials is
+> verified and green; everything that needs them is listed under *Blocked* below.
+> Nothing has been marked done that has not actually been done.
+
+### Shipped
+
+- **Prompt versioning as files.** `lib/agents/feedback-triage/prompt.v1.ts` and
+  `prompt.v2.ts`, each a value carrying its own tier, temperature, system prompt
+  and builder. v2 is not a tweak of v1 — it adds an explicit severity rubric, a
+  rule for reading through emotional tone, and a worked Danish example. The two
+  will produce genuinely different output, which is what makes Phase 4's
+  comparison view worth building.
+- **Streaming route** (`app/api/agents/[slug]/run/route.ts`) emitting NDJSON
+  frames, so one stream carries partial objects, the run id, real cost/latency,
+  and a typed error code.
+- **Telemetry write is not optional.** A failed run is written to `agent_runs`
+  with `status = 'error'` too — the difference between an audit log and a
+  success log.
+- **CPR guard** with the modulo-11 check, plus an output-side scan.
+- **Verdict bar** (Accept / Edit / Reject) writing through a Server Action.
+- **30 seed feedback items**, hand-written Danish, 40–330 words, real
+  municipalities, mixed registers, including the four deliberately hard cases the
+  brief asks for.
+- 47 tests.
+
+### Decisions made and why
+
+| Decision | Reasoning |
+| --- | --- |
+| `AgentDefinition` is **not generic** over its input type | Making it generic forced `any` into the registry: `build` takes its input, which is contravariant, so `PromptVersion<string>` is not a `PromptVersion<unknown>`. `any` violates C5. Every agent here takes free text, so the generic bought nothing and cost a constraint violation. |
+| NDJSON frames rather than `toTextStreamResponse()` | The client needs the run id (to attach a verdict), the measured cost and a typed error code — not just the object. One framed stream carries all of it in order. |
+| The **CPR check runs before the database check** | Found by testing the API directly: pasting a CPR returned "database not configured". "What happens if I paste a CPR number?" must always answer "it was blocked". Recording the blocked attempt is now best-effort so losing the counter cannot change the answer. |
+| Retries delegated to the AI SDK (`maxRetries: 2`) | It already retries only on retryable statuses and honours `retry-after`. Hand-rolling it would be worse code and worse behaviour. |
+| Errors are **codes**, never messages | An error message is interface chrome and must obey C1. A Danish string thrown from a server module could never be shown in English. |
+| Agent refuses to run when the DB is unreachable | C4 says the telemetry write is not optional. A run that cannot be logged is a run that must not start — so it fails *before* spending an API call, not after. |
+| Quote grounding shown in the UI, not just in evals | The `citat` field must be a literal substring of the input. Surfacing that check next to the quote makes the grounding claim inspectable by the person actually using the tool, not only by whoever reads the eval report. |
+
+### Verified
+
+- `npm run verify` green: typecheck → lint → **47 tests** → build, 11 routes.
+- **CPR detector**: all five required variants blocked (hyphenated, un-hyphenated,
+  mid-sentence, at start of string, inside a multi-line note), plus regex
+  `lastIndex` statefulness and non-CPR 10-digit strings covered by tests.
+- **In the browser**: typing a CPR number turns the textarea border red, shows the
+  specific Danish message, and disables the run button.
+- **Against the live API route**: `cpr_blocked` (both hyphen forms) → 400,
+  `too_long` → 400, unknown agent → 404, invalid locale → 400, clean input →
+  503 `no_database`. Every one is the correct code.
+- **Prompt regression test**: asserts the language instruction appears at *both*
+  the start and the end of every system prompt, in both locales. This is the
+  mitigation §9 prescribes for Danish drifting to English, and without a test it
+  could be deleted by accident and nobody would notice until an eval run.
+
+### Blocked — needs `GOOGLE_GENERATIVE_AI_API_KEY` + `DATABASE_URL`
+
+These are the actual Phase 2 acceptance criteria, and none of them can be
+attempted yet:
+
+- [ ] Run all 30 seed feedback items; all produce schema-valid output
+- [ ] Every run appears in `/revisionsspor` with real cost and latency
+- [ ] Accept / Edit / Reject persists
+- [ ] Streaming visibly streams
+
+### Known risk not yet testable
+
+The output schema uses Danish field names with non-ASCII characters (`resumé`,
+`fagligt_domæne`, `påvirkede_brugere`, `åbne_spørgsmål`). This is faithful to the
+domain and to the spec, but structured-output modes can be fussy about non-ASCII
+JSON Schema property names. If it turns out to misbehave against the live API, the
+fallback is ASCII field names with a display-name map — the enum *values* stay
+Danish either way, since those are canonical database keys. Recording it here so
+it is a known risk rather than a surprise.
+
+### Next
+
+Phase 3 — Sagsspejl. Guards first, feature second.

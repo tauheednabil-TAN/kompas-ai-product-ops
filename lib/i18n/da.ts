@@ -178,6 +178,67 @@ export const da = {
       'Farve bærer kun betydning. Petrol = interaktiv. Grøn = bestået. Ravgul = kræver gennemsyn. Rød = fejlet eller blokeret. Blå = information. Farve står aldrig alene — der er altid et ikon eller en tekst ved siden af.',
   },
 
+  agent: {
+    inputTitle: 'Henvendelse',
+    inputPlaceholder: 'Indsæt en henvendelse fra en kommune …',
+    inputHint: 'Kun syntetisk tekst. CPR-numre blokeres, før teksten forlader browseren.',
+    resultTitle: 'Resultat',
+    resultEmpty: 'Kør agenten for at se et forslag her.',
+    run: 'Kør agent',
+    running: 'Kører …',
+    stop: 'Afbryd',
+    useSample: 'Indsæt eksempel',
+    clear: 'Ryd',
+    charCount: (n: number, max: number) => `${n} / ${max} tegn`,
+    versionLabel: 'Promptversion',
+    versionNotes: 'Hvad er ændret i denne version',
+
+    proposalNotice:
+      'Dette er et forslag, ikke en beslutning. Ingenting sker automatisk — du godkender, retter eller afviser.',
+    accept: 'Godkend',
+    edit: 'Ret',
+    reject: 'Afvis',
+    verdictSaved: 'Vurdering gemt',
+    noteLabel: 'Note (valgfri)',
+    notePlaceholder: 'Hvorfor afviste du forslaget?',
+    addAsEvalCase: 'Tilføj som eval-case',
+    submitVerdict: 'Gem vurdering',
+
+    fields: {
+      resumé: 'Resumé',
+      produkt: 'Produkt',
+      tema: 'Tema',
+      alvorlighed: 'Alvorlighed',
+      begrundelse_alvorlighed: 'Begrundelse for alvorlighed',
+      fagligt_domæne: 'Fagligt domæne',
+      påvirkede_brugere: 'Påvirkede brugere',
+      foreslået_user_story: 'Foreslået user story',
+      som: 'Som',
+      ønsker_jeg: 'ønsker jeg',
+      så_jeg: 'så jeg',
+      åbne_spørgsmål: 'Åbne spørgsmål',
+      citat: 'Citat fra henvendelsen',
+    },
+  },
+
+  errors: {
+    rate_limit: 'Kunne ikke nå Gemini-API’et (429 – for mange kald). Prøv igen om 30 sekunder.',
+    timeout: 'Modellen svarede ikke inden for 60 sekunder. Prøv igen, eller forkort teksten.',
+    auth: 'API-nøglen mangler eller blev afvist. Kontrollér GOOGLE_GENERATIVE_AI_API_KEY.',
+    server: 'Gemini-API’et svarede med en serverfejl. Det er midlertidigt — prøv igen.',
+    schema:
+      'Modellens svar passede ikke til skemaet. Kørslen er logget som fejlet, og intet er gemt som gyldigt resultat.',
+    cpr_blocked:
+      'Teksten indeholder noget, der ligner et CPR-nummer. Indsendelsen er stoppet, og teksten er ikke sendt til modellen.',
+    too_long: 'Teksten er for lang. Maksimum er 8.000 tegn.',
+    no_database:
+      'Databasen er ikke konfigureret. Hvert modelkald skal logges, så kørslen kan ikke startes uden.',
+    unknown_agent: 'Agenten findes ikke.',
+    unknown_version: 'Promptversionen findes ikke.',
+    bad_request: 'Forespørgslen kunne ikke læses.',
+    unknown: 'Der opstod en uventet fejl. Kørslen er logget.',
+  },
+
   error: {
     generic: 'Noget gik galt under indlæsningen af siden.',
     notFound: 'Siden findes ikke',

@@ -181,6 +181,67 @@ export const en: Dictionary = {
       'Colour carries meaning only. Petrol = interactive. Green = passed. Amber = needs review. Red = failed or blocked. Blue = informational. Colour never stands alone — there is always an icon or a text label beside it.',
   },
 
+  agent: {
+    inputTitle: 'Enquiry',
+    inputPlaceholder: 'Paste an enquiry from a municipality …',
+    inputHint: 'Synthetic text only. CPR numbers are blocked before the text leaves the browser.',
+    resultTitle: 'Result',
+    resultEmpty: 'Run the agent to see a proposal here.',
+    run: 'Run agent',
+    running: 'Running …',
+    stop: 'Stop',
+    useSample: 'Insert example',
+    clear: 'Clear',
+    charCount: (n: number, max: number) => `${n} / ${max} characters`,
+    versionLabel: 'Prompt version',
+    versionNotes: 'What changed in this version',
+
+    proposalNotice:
+      'This is a proposal, not a decision. Nothing happens on its own — you accept, edit or reject it.',
+    accept: 'Accept',
+    edit: 'Edit',
+    reject: 'Reject',
+    verdictSaved: 'Verdict saved',
+    noteLabel: 'Note (optional)',
+    notePlaceholder: 'Why did you reject the proposal?',
+    addAsEvalCase: 'Add as eval case',
+    submitVerdict: 'Save verdict',
+
+    fields: {
+      resumé: 'Summary',
+      produkt: 'Product',
+      tema: 'Theme',
+      alvorlighed: 'Severity',
+      begrundelse_alvorlighed: 'Justification for severity',
+      fagligt_domæne: 'Professional domain',
+      påvirkede_brugere: 'Users affected',
+      foreslået_user_story: 'Proposed user story',
+      som: 'As',
+      ønsker_jeg: 'I want',
+      så_jeg: 'so that I',
+      åbne_spørgsmål: 'Open questions',
+      citat: 'Quote from the enquiry',
+    },
+  },
+
+  errors: {
+    rate_limit: 'Could not reach the Gemini API (429 – too many calls). Try again in 30 seconds.',
+    timeout: 'The model did not answer within 60 seconds. Try again, or shorten the text.',
+    auth: 'The API key is missing or was rejected. Check GOOGLE_GENERATIVE_AI_API_KEY.',
+    server: 'The Gemini API returned a server error. This is temporary — try again.',
+    schema:
+      'The model’s answer did not match the schema. The run is logged as failed and nothing was stored as a valid result.',
+    cpr_blocked:
+      'The text contains something that looks like a CPR number. Submission was stopped and the text was not sent to the model.',
+    too_long: 'The text is too long. The maximum is 8,000 characters.',
+    no_database:
+      'The database is not configured. Every model call must be logged, so the run cannot start without it.',
+    unknown_agent: 'That agent does not exist.',
+    unknown_version: 'That prompt version does not exist.',
+    bad_request: 'The request could not be read.',
+    unknown: 'An unexpected error occurred. The run has been logged.',
+  },
+
   error: {
     generic: 'Something failed while loading this page.',
     notFound: 'Page not found',
