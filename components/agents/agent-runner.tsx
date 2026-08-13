@@ -6,7 +6,7 @@ import { Alert } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Panel, PanelBody, PanelHeader, PanelTitle } from '@/components/ui/panel'
 import { VerdictBar } from '@/components/agents/verdict-bar'
-import { FeedbackTriageResult } from '@/components/agents/feedback-triage-result'
+import { ResultView } from '@/components/agents/result-view'
 import { formatDkk } from '@/lib/ai/cost'
 import { findCprNumbers, MAX_INPUT_CHARS } from '@/lib/ai/guards'
 import { useLocale, useT } from '@/lib/i18n/provider'
@@ -228,7 +228,12 @@ export function AgentRunner({ agent }: { agent: AgentMeta }) {
           ) : null}
 
           {partial !== null ? (
-            <FeedbackTriageResult value={partial} streaming={running} input={input} />
+            <ResultView
+              agentSlug={agent.slug}
+              value={partial}
+              streaming={running}
+              input={input}
+            />
           ) : null}
         </PanelBody>
 
