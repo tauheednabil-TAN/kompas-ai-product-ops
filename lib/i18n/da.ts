@@ -327,6 +327,24 @@ export const da = {
     fileName: 'Fil',
   },
 
+  charts: {
+    themesOverTime: 'Feedbacktemaer over tid',
+    themesOverTimeHint: 'Antal triagerede henvendelser pr. tema, grupperet pr. uge.',
+    severityByProduct: 'Alvorlighed pr. produkt',
+    passRateByVersion: 'Bestået-rate pr. promptversion',
+    costByAgent: 'Omkostning pr. agent',
+    latency: 'Svartid over tid',
+    latencyHint: 'p50 og p95 pr. dag, kun for gennemførte kørsler.',
+    verdictDistribution: 'Menneskelige vurderinger',
+    verdictHint:
+      'Det mest interessante diagram på siden: det viser, hvad menneskene faktisk mente om forslagene.',
+    empty: 'Der er ingen data at tegne endnu.',
+    week: 'Uge',
+    day: 'Dag',
+    count: 'Antal',
+    runs: 'kørsler',
+  },
+
   errors: {
     rate_limit: 'Kunne ikke nå Gemini-API’et (429 – for mange kald). Prøv igen om 30 sekunder.',
     timeout: 'Modellen svarede ikke inden for 60 sekunder. Prøv igen, eller forkort teksten.',

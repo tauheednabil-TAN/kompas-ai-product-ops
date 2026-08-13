@@ -329,6 +329,24 @@ export const en: Dictionary = {
     fileName: 'File',
   },
 
+  charts: {
+    themesOverTime: 'Feedback themes over time',
+    themesOverTimeHint: 'Number of triaged enquiries per theme, grouped by week.',
+    severityByProduct: 'Severity by product',
+    passRateByVersion: 'Pass rate per prompt version',
+    costByAgent: 'Cost per agent',
+    latency: 'Latency over time',
+    latencyHint: 'p50 and p95 per day, completed runs only.',
+    verdictDistribution: 'Human verdicts',
+    verdictHint:
+      'The most interesting chart on the page: it shows what the humans actually thought of the proposals.',
+    empty: 'There is no data to plot yet.',
+    week: 'Week',
+    day: 'Day',
+    count: 'Count',
+    runs: 'runs',
+  },
+
   errors: {
     rate_limit: 'Could not reach the Gemini API (429 – too many calls). Try again in 30 seconds.',
     timeout: 'The model did not answer within 60 seconds. Try again, or shorten the text.',
