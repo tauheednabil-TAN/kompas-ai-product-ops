@@ -13,6 +13,7 @@ export const AGENT_ERROR_CODES = [
   'schema',
   'cpr_blocked',
   'too_long',
+  'consent_required',
   'no_database',
   'unknown_agent',
   'unknown_version',

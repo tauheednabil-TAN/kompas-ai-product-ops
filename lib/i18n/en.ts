@@ -224,6 +224,42 @@ export const en: Dictionary = {
     },
   },
 
+  sagsspejl: {
+    scopeNotice:
+      'Case Mirror assesses the form and completeness of the documentation — not the social-work judgement. The professional decision is always the caseworker’s.',
+    consentLabel:
+      'I confirm that this text is synthetic and contains no personally identifiable information.',
+    noteTitle: 'Case note',
+    notePlaceholder: 'Paste a synthetic case note …',
+    analyse: 'Analyse note',
+    analysing: 'Analysing …',
+    pickSeed: 'Choose an example note',
+    tabFindings: 'Findings',
+    tabRewrite: 'Suggested rewrite',
+    overall: 'Overall assessment',
+    method: 'Method',
+    findings: 'Findings',
+    noFindings: 'No findings. The note meets the requirements for form and completeness.',
+    missingFields: 'Missing fields',
+    strengths: 'Strengths',
+    justification: 'Justification',
+    suggestion: 'Suggestion',
+    quote: 'Extract',
+    jumpToQuote: 'Show in the note',
+    quoteNotFound: 'This extract does not appear verbatim in the note',
+    rewriteApplied: (n: number) => (n === 1 ? '1 suggestion applied' : `${n} suggestions applied`),
+    rewriteUnmatched: (n: number) =>
+      n === 1
+        ? '1 suggestion could not be applied, because the extract does not appear verbatim in the note.'
+        : `${n} suggestions could not be applied, because the extracts do not appear verbatim in the note.`,
+    rewriteHint: 'Nothing is applied automatically. Copy whatever you want to use.',
+    copyRewrite: 'Copy rewrite',
+    removed: 'Removed',
+    added: 'Added',
+    footerRun: 'View this run in the audit log',
+    blockedCount: 'Blocked submissions',
+  },
+
   errors: {
     rate_limit: 'Could not reach the Gemini API (429 – too many calls). Try again in 30 seconds.',
     timeout: 'The model did not answer within 60 seconds. Try again, or shorten the text.',
@@ -234,6 +270,8 @@ export const en: Dictionary = {
     cpr_blocked:
       'The text contains something that looks like a CPR number. Submission was stopped and the text was not sent to the model.',
     too_long: 'The text is too long. The maximum is 8,000 characters.',
+    consent_required:
+      'You must confirm that the text is synthetic before it can be analysed. The confirmation applies to this session only.',
     no_database:
       'The database is not configured. Every model call must be logged, so the run cannot start without it.',
     unknown_agent: 'That agent does not exist.',

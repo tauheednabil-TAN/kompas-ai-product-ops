@@ -235,3 +235,64 @@ it is a known risk rather than a surprise.
 ### Next
 
 Phase 3 — Sagsspejl. Guards first, feature second.
+
+---
+
+## 2026-08-13 — Phase 3: Sagsspejl
+
+> Code-complete, guards fully verified, model behaviour unverified. Same
+> credentials blocker as Phase 2.
+
+### Shipped
+
+- Schema with the eight finding categories, three severities, and `styrker`
+  carrying `.min(1)`.
+- `prompt.v1.ts`, in which the scope boundary is stated three times in three
+  different ways. The failure that matters here is not a wrong answer — it is
+  Sagsspejl being read as a judgement on a citizen's case.
+- Two-column UI: the note on the left with each finding's quote marked inline,
+  findings on the right grouped by severity, and linking that works in both
+  directions.
+- **Suggested rewrite tab** with a word-level diff (`lib/diff.ts`), built by
+  applying each finding's suggestion to the original note.
+- Consent gate, length counter, CPR guard.
+- 12 synthetic case notes, every one marked `syntetisk: true`, with the six
+  deliberately seeded conditions the brief asks for — including `sn-006` (a
+  genuinely good note) and `sn-007`, which is *the same note* differing only in
+  that one sentence of professional justification has been removed. That pair is
+  the demo.
+
+### Decisions made and why
+
+| Decision | Reasoning |
+| --- | --- |
+| No separate `/api/sagsspejl/analyse` route | The architecture sketched one, but it would have duplicated the entire streaming, guard and telemetry pipeline. Two pipelines drift, and then what the eval harness measures stops being what users get. Sagsspejl is an agent in the registry with `requiresConsent: true`, enforced by the one shared route. |
+| Consent is a **server-side** check | A checkbox is a suggestion. Deleting it from the DOM must change nothing. |
+| Quotes that are not literal substrings are **not** fuzzy-matched | A paraphrased quote is itself a finding — the model failed its grounding requirement. Fuzzy matching would paper over exactly the failure the `citat` field exists to expose. The UI says "this extract does not appear verbatim" instead. |
+| `syntetisk: true` is a `z.literal`, not a boolean | A seed note not explicitly marked synthetic now fails the build rather than reaching the page. C2 enforced by the type system. |
+| The diff does not merge changes across shared whitespace | Tempting, because "x y" then renders as one highlight instead of two. But that space exists on both sides, and absorbing it would make the diff misreport its own input. Exactness beats prettiness in a tool whose job is to be trusted. There is a test naming this trade-off. |
+
+### Verified
+
+- `npm run verify` green: typecheck → lint → **63 tests** → build, 11 routes.
+- **Consent gate cannot be bypassed**, tested directly against the route:
+  field absent → `consent_required`; `false` → `consent_required`; the *string*
+  `"true"` → `bad_request` (it is type-checked, not truthiness-checked);
+  `true` → proceeds. A CPR number is still blocked even when consent is given.
+- Scope notice renders, analyse button disabled until consent, 12 seed notes
+  selectable.
+- Diff correctness: reassembling the ops reproduces **both** inputs exactly,
+  whitespace included.
+
+### Blocked — needs credentials
+
+- [ ] 12 seed notes all analyse
+- [ ] Inline highlight ↔ findings-list linking works on real model output
+      (the linking code is exercised, but never yet with findings the model
+      actually produced)
+- [ ] Diff view readable on real suggestions
+
+### Next
+
+Phase 4 — the eval harness. The module that gets you hired; it gets the most
+time and is never cut.

@@ -221,6 +221,43 @@ export const da = {
     },
   },
 
+  sagsspejl: {
+    scopeNotice:
+      'Sagsspejl vurderer dokumentationens form og fuldstændighed — ikke den socialfaglige vurdering. Den faglige beslutning er altid sagsbehandlerens.',
+    consentLabel:
+      'Jeg bekræfter, at teksten er syntetisk og ikke indeholder personhenførbare oplysninger.',
+    noteTitle: 'Sagsnotat',
+    notePlaceholder: 'Indsæt et syntetisk sagsnotat …',
+    analyse: 'Analysér notat',
+    analysing: 'Analyserer …',
+    pickSeed: 'Vælg et eksempelnotat',
+    tabFindings: 'Fund',
+    tabRewrite: 'Foreslået omskrivning',
+    overall: 'Samlet vurdering',
+    method: 'Metode',
+    findings: 'Fund',
+    noFindings: 'Ingen fund. Notatet lever op til kravene til form og fuldstændighed.',
+    missingFields: 'Manglende felter',
+    strengths: 'Styrker',
+    justification: 'Begrundelse',
+    suggestion: 'Forslag',
+    quote: 'Uddrag',
+    jumpToQuote: 'Vis i notatet',
+    quoteNotFound: 'Uddraget findes ikke ordret i notatet',
+    rewriteApplied: (n: number) => (n === 1 ? '1 forslag anvendt' : `${n} forslag anvendt`),
+    rewriteUnmatched: (n: number) =>
+      n === 1
+        ? '1 forslag kunne ikke anvendes, fordi uddraget ikke findes ordret i notatet.'
+        : `${n} forslag kunne ikke anvendes, fordi uddragene ikke findes ordret i notatet.`,
+    rewriteHint:
+      'Intet anvendes automatisk. Kopiér det, du vil bruge.',
+    copyRewrite: 'Kopiér omskrivning',
+    removed: 'Fjernet',
+    added: 'Tilføjet',
+    footerRun: 'Se kørslen i revisionssporet',
+    blockedCount: 'Blokerede indsendelser',
+  },
+
   errors: {
     rate_limit: 'Kunne ikke nå Gemini-API’et (429 – for mange kald). Prøv igen om 30 sekunder.',
     timeout: 'Modellen svarede ikke inden for 60 sekunder. Prøv igen, eller forkort teksten.',
@@ -231,6 +268,8 @@ export const da = {
     cpr_blocked:
       'Teksten indeholder noget, der ligner et CPR-nummer. Indsendelsen er stoppet, og teksten er ikke sendt til modellen.',
     too_long: 'Teksten er for lang. Maksimum er 8.000 tegn.',
+    consent_required:
+      'Du skal bekræfte, at teksten er syntetisk, før den kan analyseres. Bekræftelsen gælder kun denne session.',
     no_database:
       'Databasen er ikke konfigureret. Hvert modelkald skal logges, så kørslen kan ikke startes uden.',
     unknown_agent: 'Agenten findes ikke.',

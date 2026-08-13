@@ -60,6 +60,16 @@ export type AgentDefinition = {
 
   /** An example input, so the agent page is never a blank box. */
   sampleInput: string
+
+  /**
+   * When true, the run route refuses without an explicit per-session consent
+   * flag. Used by Sagsspejl, where the input is free-text case documentation.
+   *
+   * This lives on the agent rather than in a second route handler on purpose:
+   * duplicating the streaming, guard and telemetry pipeline would let what the
+   * eval harness measures drift away from what users actually get.
+   */
+  requiresConsent?: boolean
 }
 
 export function findVersion(

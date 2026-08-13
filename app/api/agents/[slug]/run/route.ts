@@ -18,6 +18,8 @@ const bodySchema = z.object({
   input: z.string(),
   version: z.string().optional(),
   locale: z.string().refine(isLocale, 'locale must be "da" or "en"'),
+  /** Required, and required to be `true`, for agents that declare consent. */
+  consent: z.boolean().optional(),
 })
 
 /**
@@ -55,7 +57,12 @@ export async function POST(request: NextRequest, ctx: RouteContext<'/api/agents/
 
     const parsed = bodySchema.safeParse(await request.json())
     if (!parsed.success) throw new AgentError('bad_request', 400, parsed.error.message)
-    const { input, version: requestedVersion, locale } = parsed.data
+    const { input, version: requestedVersion, locale, consent } = parsed.data
+
+    // Enforced server-side, so a checkbox removed in the DOM changes nothing.
+    if (agent.requiresConsent && consent !== true) {
+      throw new AgentError('consent_required', 400)
+    }
 
     /**
      * C2 first, ahead of every other check.
