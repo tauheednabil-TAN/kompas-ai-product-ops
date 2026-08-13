@@ -1,0 +1,100 @@
+name: Evalueringer
+
+# Only on PRs that actually touch prompts, agent code or the case files.
+# Running the suites on a README change would burn money and train everyone to
+# ignore the check.
+on:
+  pull_request:
+    paths:
+      - 'lib/agents/**'
+      - 'lib/evals/**'
+      - 'evals/**'
+
+concurrency:
+  group: evals-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Cheap checks first: a type error should not cost a single model call.
+      - name: Verify
+        run: npm run typecheck && npm run lint && npm run test -- --run
+
+      - name: Run eval suites
+        id: evals
+        env:
+          GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          set -o pipefail
+          npm run eval 2>&1 | tee eval-output.txt
+        continue-on-error: true
+
+      - name: Post results to the pull request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('eval-output.txt', 'utf8');
+            const body = [
+              '## Evalueringer',
+              '',
+              '```',
+              output.slice(-60000),
+              '```',
+              '',
+              '<sub>Kørt automatisk fordi denne PR ændrer `lib/agents/**`, `lib/evals/**` eller `evals/**`.</sub>',
+            ].join('\n');
+
+            // Update the existing comment rather than adding one per push, so a
+            // long-running PR does not become a wall of stale eval reports.
+            const marker = '## Evalueringer';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(
+              (c) => c.user.type === 'Bot' && c.body.startsWith(marker),
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      # The gate. Exit code 2 from run-evals.ts means the judge failed
+      # calibration, which is worse than a regression: it means none of the
+      # numbers in this run can be believed.
+      - name: Fail if the suites regressed or the judge is untrustworthy
+        if: steps.evals.outcome == 'failure'
+        run: |
+          echo "Eval-kørslen fejlede. Se kommentaren på denne PR."
+          exit 1

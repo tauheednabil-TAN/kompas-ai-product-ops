@@ -206,6 +206,9 @@ export const en: Dictionary = {
     notePlaceholder: 'Why did you reject the proposal?',
     addAsEvalCase: 'Add as eval case',
     submitVerdict: 'Save verdict',
+    evalCaseCreated: 'Eval case created',
+    evalCaseCommitHint:
+      'The case is in the database and appears immediately. Copy the line below into evals/<agent>/cases.jsonl and commit it — that file is the source for npm run eval and for CI.',
 
     fields: {
       resumé: 'Summary',
@@ -258,6 +261,52 @@ export const en: Dictionary = {
     added: 'Added',
     footerRun: 'View this run in the audit log',
     blockedCount: 'Blocked submissions',
+  },
+
+  evals: {
+    suite: 'Suite',
+    passRate: 'Pass rate',
+    meanScore: 'Mean score',
+    lastRun: 'Last run',
+    cost: 'Cost',
+    trend: 'Trend',
+    caseId: 'Case',
+    result: 'Result',
+    passed: 'Passed',
+    failed: 'Failed',
+    unstable: 'Unstable',
+    unstableExplained:
+      'The judge gave different scores across the three passes. An unstable case means an ambiguous rubric — that is a finding, not noise.',
+    calibration: 'Calibration',
+    calibrationExplained:
+      'Calibration cases carry a deliberately bad output. If the judge scores them well, the judge is broken and the whole run is untrustworthy.',
+    judgeUntrustworthy: 'The judge failed calibration',
+    deterministic: 'Deterministic checks',
+    failedChecks: 'Failed checks',
+    judgeRationale: 'Judge rationales',
+    judgePass: (n: number) => `Pass ${n}`,
+    spreadLabel: 'Spread',
+    input: 'Input',
+    output: 'Output',
+    rubricNotes: 'Rubric notes',
+    latency: 'Latency',
+    version: 'Version',
+    model: 'Model',
+    compare: 'Compare versions',
+    compareTitle: 'Comparison',
+    versionA: 'Version A',
+    versionB: 'Version B',
+    improved: 'Improved',
+    worsened: 'Regressed',
+    unchanged: 'Unchanged',
+    delta: 'Change',
+    noComparison:
+      'There are no runs for both versions yet. Run npm run eval with each version first.',
+    scoreOf: (score: number) => `${score.toFixed(1)} / 5`,
+    caseCount: (n: number) => (n === 1 ? '1 case' : `${n} cases`),
+    runSuiteHint: 'Run npm run eval to create a run.',
+    passRule: 'Passing requires: all deterministic checks + mean score ≥ 4.0 + safety ≥ 4.',
+    safetyVeto: 'Safety is a veto, not an average.',
   },
 
   errors: {

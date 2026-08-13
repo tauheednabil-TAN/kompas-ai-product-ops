@@ -296,3 +296,82 @@ Phase 3 — Sagsspejl. Guards first, feature second.
 
 Phase 4 — the eval harness. The module that gets you hired; it gets the most
 time and is never cut.
+
+---
+
+## 2026-08-13 — Phase 4: The eval harness ⭐
+
+> The centrepiece. Every piece of logic that can be tested without a model **is**
+> tested — 106 tests, of which 44 are new here. The judge itself has never run.
+
+### Shipped
+
+- **Layer 1, deterministic** (`lib/evals/checks.ts`): schema validity,
+  must/must-not strings, exact field expectations with dotted paths, verbatim
+  quote grounding, output language, CPR in output, latency ceiling. Any failure
+  fails the case regardless of the judge.
+- **Layer 2, the judge** (`lib/evals/judge.ts`) with all four hardening measures:
+  blind grading, rationale declared *before* score in the schema so reasoning
+  conditions the number, three passes with median and reported spread, and two
+  calibration cases per suite.
+- **`lib/evals/compare.ts`** — pure functions, no DB, no model, so the most
+  argued-over screen in the app is fully testable.
+- Three views: suite cards with a server-rendered sparkline, the case table with
+  per-dimension scores and a drill-down sheet showing **all three** judge
+  rationales, and the comparison screen with expandable side-by-side regressions.
+- **`npm run eval`** CLI, exiting 2 when the judge fails calibration.
+- **CI workflow** that runs only on PRs touching agents/evals, posts one comment
+  it updates in place, and fails the check.
+- **"Tilføj som eval-case"** on a rejected run.
+- `docs/evals.md` — full methodology including what the method *cannot* do.
+
+### Decisions made and why
+
+| Decision | Reasoning |
+| --- | --- |
+| Judge runs **even when deterministic checks failed** | Cheaper to skip, but then a regression report can only say "this failed" and never "this failed *and* quality dropped" — which is the information the comparison view exists to show. |
+| Calibration outputs are **schema-valid** | If they were malformed, layer 1 would catch them and they would never reach the judge — which is the thing being calibrated. They have to be plausible *and* bad. |
+| The two calibration cases fail in **different ways** | One is confidently inventive (fabricated product, invented user count, a diagnosis, a fake quote); the other is empty and marketing-toned with a paraphrased quote. A judge can be blind to one style and not the other. |
+| Score noise floor of **0.2** | The judge's own spread across three passes is frequently that large. Calling anything smaller an improvement would be exactly the vibes-based claim this harness replaces. A pass/fail flip always overrides it. |
+| Calibration cases **excluded** from pass rate | They measure the judge, not the prompt. Including them would move the headline number for reasons unrelated to the version being compared. |
+| Eval telemetry goes to `eval_results`, **not** `agent_runs` | C4 is satisfied — every call is logged — but hundreds of eval rows would drown the audit log, which exists to answer "what did we do to a real user's input". |
+| "Add as eval case" writes to **both** DB and a JSONL line | The row makes it visible immediately; the file is the source for `npm run eval` and CI. A case that only exists in a database is not a regression test, it is a note. |
+| `percentile` moved to `lib/evals/stats.ts` | `runner.ts` is `server-only`, which made a pure function untestable. Pure logic belongs in pure modules. |
+
+### Fixed along the way
+
+- **Test suite went from 72s to 566ms.** The vitest environment was `jsdom`,
+  costing ~5 minutes of environment setup across the run, and not one test
+  touches the DOM. Switched to `node`, with a `server-only` stub aliased in so
+  server modules stay testable.
+- The expected-value comparison used a `stringify` that left strings unquoted,
+  so a failure read `forventet Ét team, fik Ét hold`. Now JSON-quoted, which also
+  stops `"5"` and `5` comparing equal.
+
+### Verified
+
+- `npm run verify` green: typecheck → lint → **106 tests** → build, 13 routes.
+- Safety veto has its own test: mean above 4.0 with `sikkerhed: 3` must fail.
+- Comparison bucketing tested against a hand-built pair of runs, including the
+  noise floor, a pass gained, a pass lost, and a zero-cost baseline returning
+  `null` rather than `Infinity`.
+- Every JSONL case file parses; every calibration output is schema-valid against
+  its agent's own schema; duplicate ids and missing calibration outputs throw
+  with the offending line number.
+- All three eval routes render; a comparison with no version parameters shows the
+  correct empty state rather than guessing which two versions to diff.
+
+### Blocked — needs credentials
+
+- [ ] All four suites run end to end
+- [ ] The comparison view shows a **real** v1→v2 delta
+- [ ] CI posts a comment on a real merged PR
+- [ ] Calibration cases behave correctly against the real judge
+
+The last one is the one I most want to see. The calibration outputs are written
+to be caught, but whether `gemini-2.5-pro` actually catches them is exactly the
+kind of thing that cannot be reasoned about — only measured.
+
+### Next
+
+Phase 5 — Færdigheder. Still the first candidate to cut if time runs short.

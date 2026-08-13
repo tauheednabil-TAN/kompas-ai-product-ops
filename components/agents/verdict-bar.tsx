@@ -1,8 +1,10 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { Check, Pencil, X } from 'lucide-react'
+import { Check, FlaskConical, Pencil, X } from 'lucide-react'
 import { setVerdict } from '@/app/actions/runs'
+import { addRejectionAsEvalCase } from '@/app/actions/eval-cases'
+import { Alert } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Chip } from '@/components/ui/chip'
 import { useT } from '@/lib/i18n/provider'
@@ -22,6 +24,9 @@ export function VerdictBar({ runId, output }: { runId: string; output: unknown }
   const [saved, setSaved] = useState<Verdict | null>(null)
   const [drafting, setDrafting] = useState<Verdict | null>(null)
   const [note, setNote] = useState('')
+  const [savedNote, setSavedNote] = useState('')
+  const [caseJsonl, setCaseJsonl] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   function submit(verdict: Verdict, withNote: string) {
     startTransition(async () => {
@@ -33,19 +38,57 @@ export function VerdictBar({ runId, output }: { runId: string; output: unknown }
       })
       if (result.ok) {
         setSaved(verdict)
+        setSavedNote(withNote.trim())
         setDrafting(null)
         setNote('')
       }
     })
   }
 
+  function promote() {
+    startTransition(async () => {
+      const result = await addRejectionAsEvalCase({ runId, rationale: savedNote })
+      if (result.ok) setCaseJsonl(result.jsonl)
+    })
+  }
+
   if (saved) {
     return (
-      <div className="flex items-center gap-2 border-t border-border px-5 py-3">
-        <Chip tone={saved === 'accepted' ? 'ok' : saved === 'edited' ? 'warn' : 'danger'}>
-          {t.verdict[saved]}
-        </Chip>
-        <span className="text-xs text-ink-muted">{t.agent.verdictSaved}</span>
+      <div className="flex flex-col gap-3 border-t border-border px-5 py-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <Chip tone={saved === 'accepted' ? 'ok' : saved === 'edited' ? 'warn' : 'danger'}>
+            {t.verdict[saved]}
+          </Chip>
+          <span className="text-xs text-ink-muted">{t.agent.verdictSaved}</span>
+
+          {/* The loop that makes this a product: a real failure a human caught
+              becomes a case that can never silently come back. */}
+          {saved === 'rejected' && savedNote.length >= 10 && caseJsonl === null ? (
+            <Button variant="secondary" size="sm" onClick={promote} disabled={pending}>
+              <FlaskConical aria-hidden />
+              {t.agent.addAsEvalCase}
+            </Button>
+          ) : null}
+        </div>
+
+        {caseJsonl ? (
+          <Alert tone="ok" title={t.agent.evalCaseCreated}>
+            <p className="mb-2">{t.agent.evalCaseCommitHint}</p>
+            <pre className="max-h-32 overflow-auto rounded-[6px] border border-border bg-surface-sunk p-2 font-mono text-2xs whitespace-pre-wrap">
+              {caseJsonl}
+            </pre>
+            <Button
+              variant="secondary"
+              size="sm"
+              className="mt-2"
+              onClick={() => {
+                void navigator.clipboard.writeText(caseJsonl).then(() => setCopied(true))
+              }}
+            >
+              {copied ? t.common.copied : t.common.copy}
+            </Button>
+          </Alert>
+        ) : null}
       </div>
     )
   }

@@ -1,12 +1,13 @@
-import { AlertTriangle, Info, ShieldAlert, type LucideIcon } from 'lucide-react'
+import { AlertTriangle, Check, Info, ShieldAlert, type LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-export type AlertTone = 'info' | 'warn' | 'danger'
+export type AlertTone = 'info' | 'warn' | 'danger' | 'ok'
 
 const TONE: Record<AlertTone, { className: string; icon: LucideIcon }> = {
   info: { className: 'border-info/30 bg-info-soft text-info', icon: Info },
   warn: { className: 'border-warn/30 bg-warn-soft text-warn', icon: AlertTriangle },
   danger: { className: 'border-danger/30 bg-danger-soft text-danger', icon: ShieldAlert },
+  ok: { className: 'border-ok/30 bg-ok-soft text-ok', icon: Check },
 }
 
 /**

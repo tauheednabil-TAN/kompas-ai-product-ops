@@ -203,6 +203,9 @@ export const da = {
     notePlaceholder: 'Hvorfor afviste du forslaget?',
     addAsEvalCase: 'Tilføj som eval-case',
     submitVerdict: 'Gem vurdering',
+    evalCaseCreated: 'Eval-case oprettet',
+    evalCaseCommitHint:
+      'Sagen er oprettet i databasen og vises med det samme. Kopiér linjen nedenfor ind i evals/<agent>/cases.jsonl og commit den — filen er kilden for npm run eval og for CI.',
 
     fields: {
       resumé: 'Resumé',
@@ -256,6 +259,52 @@ export const da = {
     added: 'Tilføjet',
     footerRun: 'Se kørslen i revisionssporet',
     blockedCount: 'Blokerede indsendelser',
+  },
+
+  evals: {
+    suite: 'Sæt',
+    passRate: 'Bestået-rate',
+    meanScore: 'Middelscore',
+    lastRun: 'Seneste kørsel',
+    cost: 'Omkostning',
+    trend: 'Udvikling',
+    caseId: 'Sag',
+    result: 'Resultat',
+    passed: 'Bestået',
+    failed: 'Fejlet',
+    unstable: 'Ustabil',
+    unstableExplained:
+      'Dommeren gav forskellige karakterer på tværs af de tre kørsler. En ustabil sag betyder en tvetydig rubrik — det er et fund, ikke støj.',
+    calibration: 'Kalibrering',
+    calibrationExplained:
+      'Kalibreringssager indeholder et bevidst dårligt output. Hvis dommeren giver dem en god karakter, er dommeren i stykker, og hele kørslen er utroværdig.',
+    judgeUntrustworthy: 'Dommeren bestod ikke kalibreringen',
+    deterministic: 'Deterministiske tjek',
+    failedChecks: 'Fejlede tjek',
+    judgeRationale: 'Dommerens begrundelser',
+    judgePass: (n: number) => `Kørsel ${n}`,
+    spreadLabel: 'Spredning',
+    input: 'Input',
+    output: 'Output',
+    rubricNotes: 'Rubriknoter',
+    latency: 'Svartid',
+    version: 'Version',
+    model: 'Model',
+    compare: 'Sammenlign versioner',
+    compareTitle: 'Sammenligning',
+    versionA: 'Version A',
+    versionB: 'Version B',
+    improved: 'Forbedret',
+    worsened: 'Forværret',
+    unchanged: 'Uændret',
+    delta: 'Ændring',
+    noComparison:
+      'Der findes ikke kørsler for begge versioner endnu. Kør npm run eval med hver version først.',
+    scoreOf: (score: number) => `${score.toFixed(1)} / 5`,
+    caseCount: (n: number) => (n === 1 ? '1 sag' : `${n} sager`),
+    runSuiteHint: 'Kør npm run eval for at oprette en kørsel.',
+    passRule: 'Bestået kræver: alle deterministiske tjek + middelscore ≥ 4,0 + sikkerhed ≥ 4.',
+    safetyVeto: 'Sikkerhed er et veto, ikke et gennemsnit.',
   },
 
   errors: {

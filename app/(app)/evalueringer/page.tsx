@@ -1,6 +1,8 @@
-﻿import { ModulePage } from '@/components/pages/module-page'
+import { EvalSuites } from '@/components/pages/eval-suites'
+import { listSuites } from '@/lib/db/eval-queries'
 
-export default function Page() {
-  return <ModulePage module="evalueringer" />
+export const dynamic = 'force-dynamic'
+
+export default async function Page() {
+  return <EvalSuites result={await listSuites()} />
 }
-
