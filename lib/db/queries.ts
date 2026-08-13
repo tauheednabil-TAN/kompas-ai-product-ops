@@ -13,7 +13,25 @@ import { agentRuns, blockedSubmissions, type AgentRun } from './schema'
 export type QueryResult<T> =
   | { state: 'ok'; data: T }
   | { state: 'not-configured' }
-  | { state: 'unreachable'; error: string }
+  | { state: 'unreachable'; error?: string }
+
+/**
+ * Turn a driver error into something safe to render.
+ *
+ * A Postgres connection error routinely contains the host, database name and
+ * role. That string is passed to a Client Component and ends up in the browser,
+ * so it is only surfaced in development — in production the page says the
+ * database is unreachable and the detail goes to the server log, where whoever
+ * can read it is already trusted.
+ */
+export function safeErrorDetail(error: unknown): string | undefined {
+  const message = error instanceof Error ? error.message : String(error)
+  if (process.env.NODE_ENV === 'production') {
+    console.error('[db]', message)
+    return undefined
+  }
+  return message
+}
 
 async function run<T>(fn: (db: NonNullable<ReturnType<typeof getDb>>) => Promise<T>): Promise<QueryResult<T>> {
   const db = getDb()
@@ -21,10 +39,7 @@ async function run<T>(fn: (db: NonNullable<ReturnType<typeof getDb>>) => Promise
   try {
     return { state: 'ok', data: await fn(db) }
   } catch (error) {
-    return {
-      state: 'unreachable',
-      error: error instanceof Error ? error.message : String(error),
-    }
+    return { state: 'unreachable', error: safeErrorDetail(error) }
   }
 }
 

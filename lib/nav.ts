@@ -37,7 +37,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
     icon: ScrollText,
     label: (t) => t.nav.revisionsspor,
   },
-  { href: '/haandbog/design', match: '/haandbog', icon: BookOpen, label: (t) => t.nav.haandbog },
+  { href: '/haandbog', match: '/haandbog', icon: BookOpen, label: (t) => t.nav.haandbog },
 ]
 
 /**

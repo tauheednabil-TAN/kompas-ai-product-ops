@@ -10,6 +10,7 @@ import { buildCall, hashInput, resolveVersion } from '@/lib/agents/runner'
 import { isDbConfigured, requireDb } from '@/lib/db'
 import { agentRuns, blockedSubmissions } from '@/lib/db/schema'
 import { isLocale } from '@/lib/i18n/config'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -54,6 +55,15 @@ export async function POST(request: NextRequest, ctx: RouteContext<'/api/agents/
   try {
     const agent = getAgent(slug)
     if (!agent) throw new AgentError('unknown_agent', 404)
+
+    // No-op unless DEMO_MODE is on.
+    const limit = checkRateLimit(request)
+    if (!limit.allowed) {
+      return Response.json(
+        { code: 'rate_limit' },
+        { status: 429, headers: { 'retry-after': String(limit.retryAfterSeconds) } },
+      )
+    }
 
     const parsed = bodySchema.safeParse(await request.json())
     if (!parsed.success) throw new AgentError('bad_request', 400, parsed.error.message)

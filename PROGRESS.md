@@ -420,3 +420,95 @@ entirely testable without a model.
 ### Next
 
 Phase 6 — Release-noter and Regel-radar.
+
+---
+
+## 2026-08-13 — Phases 6, 7 and 8
+
+### Phase 6 — Release-noter + Regel-radar
+
+Four agents now. Both new suites got 17 curated cases plus 2 calibration cases,
+and the generic eval tests validated them the moment they landed.
+
+- **Release-noter** carries an `udeladt` field so changes a user cannot feel are
+  visibly fenced off rather than silently dropped, and `sprogtjek` booleans the
+  model has to commit to — a stronger instruction than "avoid anglicisms" buried
+  in prose, and something deterministic for the harness to look at.
+- **Regel-radar** turns on one distinction: obligations versus intentions.
+  "Skal" triggers a change; "bør" and "det anbefales" do not, and case `rr-003`
+  exists purely to check the model does not treat guidance as a requirement. It
+  states the not-legal-advice caveat in a *required schema field* rather than a
+  prompt instruction, and downgrades risk by one level for drafts in consultation.
+- Result rendering became a generic walker with a bespoke view only for
+  Feedback-triage. Four hand-written views would be four views drifting out of
+  sync with four schemas. The generic one still surfaces the verbatim-quote check
+  on any field named as a quote.
+
+### Phase 7 — Indsigter
+
+Six charts, every number from a real row. The theme and severity series read the
+stored `output_json` of successful runs rather than a separate analytics table:
+one source of truth for what an agent said, because duplicating it is how a
+dashboard starts disagreeing with the audit log.
+
+Two axis decisions worth naming: pass rate is pinned to a 0–1 domain so a
+two-point wobble does not render as a cliff, and latency uses `percentile_disc`
+rather than `percentile_cont`, because an interpolated latency is a number no
+request ever actually took.
+
+### Phase 8 — Håndbog, README, hardening
+
+- **Håndbog**: five chapters in Danish, plus the design gallery. Written as typed
+  data rather than MDX — MDX would mean a compiler, a plugin chain and a second
+  content pipeline, and every chapter here is prose, headings and lists.
+- **README** rewritten as a pitch, with a limitations section that leads with
+  the thing that matters: no live model call has ever been made.
+- **`docs/ai-act-notes.md`** — framed as design intent, with an explicit list of
+  what was deliberately *not* done (no risk classification, no DPIA, no QMS, no
+  retention policy).
+- **DEMO_MODE rate limiting**, in-memory and honest in its own comment about
+  what that means on serverless.
+
+### Security review — done manually, and it found two real things
+
+The `/security-review` skill needs a git remote, which does not exist yet, so
+this was a manual pass.
+
+1. **Database errors were rendered to the browser.** `queries.ts` returned
+   `error.message` and `DbNotice` displayed it. A Postgres connection error
+   routinely contains the host, database name and role. Now gated: full detail in
+   development, server log only in production.
+2. **No security headers.** Added `X-Content-Type-Options`, `X-Frame-Options`,
+   `Referrer-Policy`, `Permissions-Policy`, HSTS, and a CSP covering
+   `frame-ancestors`, `object-src` and `base-uri`. Verified live on a response.
+
+Checked and clean: no secret value in the client bundle (the only match is the
+*name* `GOOGLE_GENERATIVE_AI_API_KEY` inside a Danish error string, which is
+intentional — it tells the operator what to configure); one
+`dangerouslySetInnerHTML`, carrying a static theme script with no interpolated
+input; all Server Actions Zod-validated; the zip route re-validates and its
+filename is regex-constrained; all file reads use fixed paths.
+
+**Known gap, documented rather than hidden:** there is no `script-src` CSP. The
+theme script is inlined to prevent a flash before hydration, and Next's bootstrap
+is inline too, so a strict policy needs a per-request nonce threaded through a
+proxy. Listed in the README.
+
+### Verified
+
+- `npm run verify` green: **154 tests**, 16 routes.
+- All 13 user-facing routes return 200; unknown agent, unknown chapter and
+  unknown path all 404.
+- Locale toggle across the whole app: `lang="en"`, zero Danish characters left
+  anywhere in nav or header.
+- Security headers confirmed on a live response.
+
+### Still blocked — the only thing left
+
+Everything that needs `GOOGLE_GENERATIVE_AI_API_KEY` and `DATABASE_URL`. That is:
+every agent producing real output, every eval suite running, the comparison view
+showing a real delta, the audit log holding real cost, CI posting on a real PR,
+and the Vercel deployment.
+
+The build is otherwise complete. `npm run db:push && npm run seed && npm run eval`
+is the whole remaining sequence once those two values exist.

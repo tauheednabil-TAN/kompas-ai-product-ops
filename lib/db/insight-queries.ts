@@ -1,9 +1,9 @@
-import 'server-only'
+﻿import 'server-only'
 
 import { desc, sql } from 'drizzle-orm'
 import { getDb } from './index'
 import { agentRuns, evalRuns } from './schema'
-import type { QueryResult } from './queries'
+import { safeErrorDetail, type QueryResult } from './queries'
 
 async function run<T>(fn: (db: NonNullable<ReturnType<typeof getDb>>) => Promise<T>): Promise<QueryResult<T>> {
   const db = getDb()
@@ -11,7 +11,7 @@ async function run<T>(fn: (db: NonNullable<ReturnType<typeof getDb>>) => Promise
   try {
     return { state: 'ok', data: await fn(db) }
   } catch (error) {
-    return { state: 'unreachable', error: error instanceof Error ? error.message : String(error) }
+    return { state: 'unreachable', error: safeErrorDetail(error) }
   }
 }
 
@@ -30,7 +30,7 @@ export type Insights = {
  * Every number here comes from a real row.
  *
  * The theme and severity series read the stored `output_json` of successful
- * Feedback-triage runs rather than a separate analytics table — there is exactly
+ * Feedback-triage runs rather than a separate analytics table â€” there is exactly
  * one source of truth for what an agent said, and duplicating it into a second
  * table is how dashboards start disagreeing with the audit log.
  */
@@ -127,3 +127,4 @@ export function getInsights(): Promise<QueryResult<Insights>> {
     }
   })
 }
+

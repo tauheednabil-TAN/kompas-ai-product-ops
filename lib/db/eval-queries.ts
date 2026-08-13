@@ -1,11 +1,11 @@
-import 'server-only'
+﻿import 'server-only'
 
 import { and, desc, eq } from 'drizzle-orm'
 import type { RunSummary } from '@/lib/evals/compare'
 import type { Dimension } from '@/lib/evals/rubrics'
 import { getDb } from './index'
 import { evalCases, evalResults, evalRuns, evalSuites } from './schema'
-import type { QueryResult } from './queries'
+import { safeErrorDetail, type QueryResult } from './queries'
 
 async function run<T>(fn: (db: NonNullable<ReturnType<typeof getDb>>) => Promise<T>): Promise<QueryResult<T>> {
   const db = getDb()
@@ -13,7 +13,7 @@ async function run<T>(fn: (db: NonNullable<ReturnType<typeof getDb>>) => Promise
   try {
     return { state: 'ok', data: await fn(db) }
   } catch (error) {
-    return { state: 'unreachable', error: error instanceof Error ? error.message : String(error) }
+    return { state: 'unreachable', error: safeErrorDetail(error) }
   }
 }
 
@@ -285,3 +285,4 @@ export function getComparison(
     }
   })
 }
+
