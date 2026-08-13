@@ -375,3 +375,48 @@ kind of thing that cannot be reasoned about — only measured.
 ### Next
 
 Phase 5 — Færdigheder. Still the first candidate to cut if time runs short.
+
+---
+
+## 2026-08-13 — Phase 5: Færdigheder
+
+Kept rather than cut, because the validator is the interesting part and it is
+entirely testable without a model.
+
+### Shipped
+
+- **Validator** (`lib/skills/validate.ts`) — ten checks over frontmatter, name
+  format, description length, trigger-phrase count, and body structure.
+- **Three hand-written seed skills**, so the registry is never empty.
+- Skill-builder agent producing `{ name, description, body_md }` as structured
+  output, assembled into SKILL.md and validated live as the stream arrives.
+- `/api/skills/zip`, packaging as `<name>/SKILL.md`.
+- 22 new tests (128 total).
+
+### Decisions made and why
+
+| Decision | Reasoning |
+| --- | --- |
+| The three seeds are tested **against the project's own validator** | If the hand-written examples could not pass the bar the generator is held to, the bar would be dishonest. They pass. |
+| The generator returns structured fields, not raw markdown | C6 wants Zod on every structured output, and it means the file is assembled by code that always produces the same shape — the model cannot get the YAML delimiters wrong. |
+| Validation runs on every partial frame | The checklist fills in as the model writes instead of appearing all at once, which makes it obvious that the checks are real and not decoration. |
+| The zip endpoint **re-validates** | Last point before something leaves the app claiming to be a working skill, and a client can post anything. |
+| Skill builder is not in `AGENTS` | It produces developer tooling, not a proposal about a citizen or a product, so it has no verdict workflow and no eval suite. Still the same runtime, telemetry and audit row. |
+| Trigger phrases are counted, not just required | A description is a *trigger mechanism*, not marketing copy. Counting quoted phrases and clauses reliably separates "Use when the user says X, Y or Z" from "Helps with stuff". |
+
+### Verified
+
+- `npm run verify` green: **128 tests**, 14 routes.
+- All three seed skills pass the validator; filenames match declared names.
+- Zip endpoint in the browser: valid → 200 `application/zip`; missing
+  frontmatter → 422 listing every failed check id; non-kebab name → 400.
+- With no `GITHUB_TOKEN`, the "Åbn PR" button is **absent** from the DOM, not
+  disabled — C8 as written.
+
+### Blocked
+
+- [ ] A generated skill is genuinely usable (needs the model)
+
+### Next
+
+Phase 6 — Release-noter and Regel-radar.

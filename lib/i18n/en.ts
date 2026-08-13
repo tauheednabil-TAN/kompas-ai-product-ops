@@ -309,6 +309,26 @@ export const en: Dictionary = {
     safetyVeto: 'Safety is a veto, not an average.',
   },
 
+  skills: {
+    registry: 'Registry',
+    builder: 'Build a skill',
+    describeTask: 'Describe the task',
+    describePlaceholder:
+      'Describe a recurring task you do by hand today. Write it the way you would explain it to a new colleague …',
+    generate: 'Generate skill',
+    generating: 'Generating …',
+    preview: 'Preview',
+    validation: 'Validation',
+    validationPassed: 'All checks passed',
+    validationFailed: 'The skill is not valid yet',
+    downloadZip: 'Download .zip',
+    openPr: 'Open a PR on GitHub',
+    noSkills: 'There are no skills in the registry yet.',
+    invalidSkill: 'Fails validation',
+    seeded: 'Hand-written',
+    fileName: 'File',
+  },
+
   errors: {
     rate_limit: 'Could not reach the Gemini API (429 – too many calls). Try again in 30 seconds.',
     timeout: 'The model did not answer within 60 seconds. Try again, or shorten the text.',

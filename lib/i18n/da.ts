@@ -307,6 +307,26 @@ export const da = {
     safetyVeto: 'Sikkerhed er et veto, ikke et gennemsnit.',
   },
 
+  skills: {
+    registry: 'Register',
+    builder: 'Byg en færdighed',
+    describeTask: 'Beskriv opgaven',
+    describePlaceholder:
+      'Beskriv en tilbagevendende opgave, du løser i hånden i dag. Skriv det som du ville forklare det til en ny kollega …',
+    generate: 'Generér færdighed',
+    generating: 'Genererer …',
+    preview: 'Forhåndsvisning',
+    validation: 'Validering',
+    validationPassed: 'Alle tjek bestået',
+    validationFailed: 'Færdigheden er ikke gyldig endnu',
+    downloadZip: 'Hent som .zip',
+    openPr: 'Åbn PR på GitHub',
+    noSkills: 'Der er endnu ingen færdigheder i registret.',
+    invalidSkill: 'Består ikke validering',
+    seeded: 'Håndskrevet',
+    fileName: 'Fil',
+  },
+
   errors: {
     rate_limit: 'Kunne ikke nå Gemini-API’et (429 – for mange kald). Prøv igen om 30 sekunder.',
     timeout: 'Modellen svarede ikke inden for 60 sekunder. Prøv igen, eller forkort teksten.',
