@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import { writeCookie, YEAR_IN_SECONDS } from '../cookies'
 import { LOCALE_COOKIE, type Locale } from './config'
 import { da, type Dictionary } from './da'
 import { en } from './en'
@@ -34,10 +35,11 @@ export function LocaleProvider({
 
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next)
-    document.cookie = `${LOCALE_COOKIE}=${next}; path=/; max-age=31536000; samesite=lax`
     // Drives `hyphens: auto` for Danish via the `html[lang="en"]` rule in
     // globals.css, and tells screen readers which language to pronounce.
+    // Applied before the cookie write, so blocked cookies cannot stop it.
     document.documentElement.lang = next
+    writeCookie(LOCALE_COOKIE, next, { maxAge: YEAR_IN_SECONDS })
   }, [])
 
   const value = useMemo<LocaleContextValue>(

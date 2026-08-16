@@ -2,9 +2,11 @@
 
 import { useState } from 'react'
 import { ShieldAlert, X } from 'lucide-react'
+import { writeCookie } from '@/lib/cookies'
 import { useT } from '@/lib/i18n/provider'
-
-export const BANNER_COOKIE = 'kompas_banner_dismissed'
+// One definition, shared with the server component that reads it in the layout.
+// It used to be declared here as well, which is a silent-desync waiting to happen.
+import { BANNER_COOKIE } from '@/lib/ui-cookies'
 
 /**
  * Constraint C2. Dismissible **per session, never per user** — someone who
@@ -21,9 +23,11 @@ export function SyntheticBanner({ initialDismissed }: { initialDismissed: boolea
   const [dismissed, setDismissed] = useState(initialDismissed)
 
   function dismiss() {
-    // No max-age and no expires: the browser drops it when the session ends.
-    document.cookie = `${BANNER_COOKIE}=1; path=/; samesite=lax`
+    // Hide first, remember second — a blocked cookie must not leave the user
+    // unable to dismiss the banner at all. No max-age, so the browser drops it
+    // when the session ends.
     setDismissed(true)
+    writeCookie(BANNER_COOKIE, '1')
   }
 
   if (dismissed) return null

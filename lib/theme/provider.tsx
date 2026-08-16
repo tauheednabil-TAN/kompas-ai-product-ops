@@ -9,6 +9,7 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { writeCookie, YEAR_IN_SECONDS } from '../cookies'
 import { THEME_COOKIE, type ThemeChoice } from './config'
 
 /** Kept next to THEME_INIT_SCRIPT's logic in config.ts so the two cannot drift. */
@@ -37,9 +38,14 @@ export function ThemeProvider({
   const [choice, setChoiceState] = useState<ThemeChoice>(initialChoice)
 
   const setChoice = useCallback((next: ThemeChoice) => {
+    // Order matters. The visible change happens first and unconditionally;
+    // remembering it is best-effort. Previously the cookie write sat in the
+    // middle, so anywhere cookies are blocked — a sandboxed preview iframe, a
+    // strict privacy setting — a throw skipped applyTheme() and the toggle did
+    // nothing at all.
     setChoiceState(next)
-    document.cookie = `${THEME_COOKIE}=${next}; path=/; max-age=31536000; samesite=lax`
     applyTheme(next)
+    writeCookie(THEME_COOKIE, next, { maxAge: YEAR_IN_SECONDS })
   }, [])
 
   /**

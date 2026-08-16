@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
+import { writeCookie, YEAR_IN_SECONDS } from '@/lib/cookies'
 import { useT } from '@/lib/i18n/provider'
 import { NAV_ITEMS, isNavItemActive } from '@/lib/nav'
 import { SIDEBAR_COOKIE } from '@/lib/ui-cookies'
@@ -20,11 +21,12 @@ export function Sidebar({ initialCollapsed }: { initialCollapsed: boolean }) {
   const [collapsed, setCollapsed] = useState(initialCollapsed)
 
   function toggle() {
-    setCollapsed((prev) => {
-      const next = !prev
-      document.cookie = `${SIDEBAR_COOKIE}=${next ? '1' : '0'}; path=/; max-age=31536000; samesite=lax`
-      return next
-    })
+    // The cookie write moved out of the state updater. A throw inside an
+    // updater takes the render down with it, and updaters are expected to be
+    // pure anyway.
+    const next = !collapsed
+    setCollapsed(next)
+    writeCookie(SIDEBAR_COOKIE, next ? '1' : '0', { maxAge: YEAR_IN_SECONDS })
   }
 
   return (
